@@ -4,10 +4,7 @@ using Lab3.PL.Menus;
 
 namespace Lab3.PL;
 
-/// <summary>
-/// Клас Menu - найвищий рівень (представлення): взаємодія з користувачем через консоль,
-/// виклик методів сервісів BLL і передача туди введених даних, зокрема типу та імені файлу.
-/// </summary>
+
 public static class Menu
 {
     public static void MainMenu()
@@ -42,7 +39,7 @@ public static class Menu
         }
         catch (InputEndedException)
         {
-            // Вхідний потік закінчився - завершуємо роботу.
+            
         }
     }
 }
