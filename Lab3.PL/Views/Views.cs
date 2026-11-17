@@ -1,6 +1,6 @@
 namespace Lab3.PL.Views;
 
-/// <summary>Власні класи сутностей рівня представлення (не залежать ні від BLL-моделей, ні від DAL-сутностей).</summary>
+
 internal interface IView
 {
     string Describe();
