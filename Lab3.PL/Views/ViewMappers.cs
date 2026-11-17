@@ -2,7 +2,7 @@ using Lab3.BLL.Models;
 
 namespace Lab3.PL.Views;
 
-/// <summary>Перетворення між класами PL та моделями BLL.</summary>
+
 internal interface IViewMapper<TView, TModel>
 {
     TView ToView(TModel model);
