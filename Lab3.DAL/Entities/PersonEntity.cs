@@ -2,7 +2,7 @@ using System.Runtime.Serialization;
 
 namespace Lab3.DAL.Entities;
 
-/// <summary>Спільні дані осіб: ім'я, прізвище, кількість виконаних танців.</summary>
+
 [Serializable]
 public abstract class PersonEntity : Entity
 {
