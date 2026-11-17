@@ -8,19 +8,16 @@ internal static class Program
     {
         Console.OutputEncoding = Encoding.UTF8;
 
-        // Файли складаються в папку output поруч із програмою
         string folder = Path.Combine(AppContext.BaseDirectory, "output");
         Directory.CreateDirectory(folder);
 
         Console.WriteLine("################ ЧАСТИНА 1: дослідження серіалізації ################");
         Console.WriteLine();
 
-        // Завдання 1-2: масив із 4 об'єктів
         Book[] original = CreateBooks();
         Console.WriteLine("Вихідний масив Book[] (4 об'єкти):");
         foreach (Book book in original) Console.WriteLine("   " + book);
 
-        // Завдання 4: така сама колекція List<Book> для порівняння
         List<Book> originalList = new List<Book>(original);
 
         IBookSerializer[] serializers =
@@ -46,7 +43,6 @@ internal static class Program
         Console.WriteLine();
         Console.WriteLine($"=== {serializer.Name} ===");
 
-        // Завдання 2-3: серіалізація масиву у файл і відновлення в НОВИЙ масив
         string arrayPath = Path.Combine(folder, "books_array" + serializer.Extension);
         serializer.Serialize(arrayPath, array);
         Book[] restoredArray = serializer.Deserialize<Book[]>(arrayPath);
@@ -56,7 +52,6 @@ internal static class Program
                           $"не той самий об'єкт: {!ReferenceEquals(array, restoredArray)}, " +
                           $"значення збігаються: {array.SequenceEqual(restoredArray)}");
 
-        // Завдання 4: серіалізація колекції List<Book> та порівняння з масивом
         string listPath = Path.Combine(folder, "books_list" + serializer.Extension);
         serializer.Serialize(listPath, list);
         List<Book> restoredList = serializer.Deserialize<List<Book>>(listPath);
@@ -89,7 +84,6 @@ internal static class Program
         Console.WriteLine($"Приклад: після Add до List<Book> стало {demo.Count} книг, а в масиві так зробити не можна.");
     }
 
-    // Чотири книги за умовою варіанта 2
     private static Book[] CreateBooks() => new[]
     {
         new Book(305, "Кобзар", 1840, 250.00m, 100),
