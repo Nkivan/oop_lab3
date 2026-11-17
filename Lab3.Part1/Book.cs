@@ -3,11 +3,7 @@ using System.Runtime.Serialization;
 
 namespace Lab3.Part1;
 
-/// <summary>
-/// Книга (варіант 2). Підготовлена до серіалізації:
-/// - [Serializable] та ISerializable - користувацька серіалізація (GetObjectData + спеціальний конструктор);
-/// - відкриті властивості з get/set і конструктор без параметрів - XML та JSON.
-/// </summary>
+
 [Serializable]
 public class Book : ISerializable, IEquatable<Book>
 {
@@ -47,7 +43,7 @@ public class Book : ISerializable, IEquatable<Book>
         set { if (value < 0) throw new ArgumentException("Кількість примірників не може бути від'ємною."); _copies = value; }
     }
 
-    public Book() { }   // потрібен XmlSerializer та JSON
+    public Book() { }   
 
     public Book(int serialNumber, string title, int publicationYear, decimal pricePerCopy, int copies)
     {
@@ -58,7 +54,7 @@ public class Book : ISerializable, IEquatable<Book>
         Copies = copies;
     }
 
-    // ---- користувацька серіалізація (ISerializable) ----
+    
 
     protected Book(SerializationInfo info, StreamingContext context)
     {
@@ -74,31 +70,29 @@ public class Book : ISerializable, IEquatable<Book>
         info.AddValue(nameof(SerialNumber), SerialNumber);
         info.AddValue(nameof(Title), Title);
         info.AddValue(nameof(PublicationYear), PublicationYear);
-        // Ціна записується рядком із інваріантною культурою, щоб файл не залежав від налаштувань ОС.
+
         info.AddValue(nameof(PricePerCopy), PricePerCopy.ToString(CultureInfo.InvariantCulture));
         info.AddValue(nameof(Copies), Copies);
     }
 
-    // ---- методи варіанта ----
 
-    /// <summary>Збільшення вартості на певний відсоток.</summary>
     public void IncreasePrice(decimal percent)
     {
         if (percent <= -100) throw new ArgumentException("Відсоток має бути більшим за -100.");
         PricePerCopy = Math.Round(PricePerCopy * (1 + percent / 100m), 2);
     }
 
-    /// <summary>Загальна вартість тиражу.</summary>
+  
     public decimal TotalCost() => PricePerCopy * Copies;
 
-    /// <summary>Інформація про книгу.</summary>
+  
     public string GetInfo()
         => $"№{SerialNumber}: «{Title}», {PublicationYear} р., {PricePerCopy.ToString("F2", CultureInfo.InvariantCulture)} грн × {Copies} = " +
            $"{TotalCost().ToString("F2", CultureInfo.InvariantCulture)} грн";
 
     public override string ToString() => GetInfo();
 
-    // Рівність за значеннями всіх полів: нею перевіряємо, що відновлені об'єкти збігаються з вихідними.
+  
     public bool Equals(Book other)
         => other != null && SerialNumber == other.SerialNumber && Title == other.Title &&
            PublicationYear == other.PublicationYear && PricePerCopy == other.PricePerCopy && Copies == other.Copies;
