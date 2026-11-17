@@ -8,10 +8,7 @@ namespace Lab3.PL.Menus;
 
 internal sealed record MenuItem(string Title, Action Action);
 
-/// <summary>
-/// Узагальнене підменю для будь-якої сутності: одне й те саме меню працює для студентів, таксистів і акробатів.
-/// Усі винятки BLL перехоплюються тут, на рівні представлення, а не там, де їх згенеровано.
-/// </summary>
+
 internal abstract class EntityMenu<TView, TModel>
     where TView : IView
     where TModel : Person
@@ -92,7 +89,7 @@ internal abstract class EntityMenu<TView, TModel>
             ? $"Файл: {Service.CurrentFile} ({FormatName(Service.CurrentFormat.Value)})"
             : "Файл БД не відкрито";
 
-    // ---------- команди ----------
+    
 
     private void OpenStorage()
     {
@@ -175,7 +172,7 @@ internal abstract class EntityMenu<TView, TModel>
         Console.WriteLine($"Додано: {added}, пропущено (вже є): {skipped}.");
     }
 
-    // ---------- допоміжне ----------
+   
 
     private static SerializationFormat ChooseFormat()
     {
