@@ -3,7 +3,7 @@ using Lab3.BLL.Exceptions;
 
 namespace Lab3.BLL.Validation;
 
-/// <summary>Правила предметної області (регулярні вирази). Використовуються і моделями, і рівнем представлення.</summary>
+
 public static class Validator
 {
     public const string NamePattern = @"^[A-Za-zА-Яа-яІіЇїЄєҐґ'’\-]{2,30}$";
