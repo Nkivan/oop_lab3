@@ -5,7 +5,7 @@ using Lab3.DAL.Entities;
 
 namespace Lab3.DAL.Providers;
 
-/// <summary>XML-серіалізація (XmlSerializer): серіалізуються відкриті властивості з get/set.</summary>
+
 public class XmlDataProvider<T> : DataProvider<T> where T : Entity, new()
 {
     private static readonly XmlSerializer Serializer = new XmlSerializer(typeof(T[]));
