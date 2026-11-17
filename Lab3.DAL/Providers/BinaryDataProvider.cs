@@ -4,12 +4,7 @@ using Lab3.DAL.Entities;
 
 namespace Lab3.DAL.Providers;
 
-/// <summary>
-/// Двійкова серіалізація на BinaryWriter/BinaryReader. Стандартний BinaryFormatter у .NET 8
-/// вилучено з міркувань безпеки, тому формат описано явно: сигнатура, кількість об'єктів,
-/// далі значення всіх відкритих властивостей (за алфавітом їхніх імен).
-/// Один універсальний код працює для будь-якої сутності.
-/// </summary>
+
 public class BinaryDataProvider<T> : DataProvider<T> where T : Entity, new()
 {
     private const string Signature = "LAB3-BIN";
