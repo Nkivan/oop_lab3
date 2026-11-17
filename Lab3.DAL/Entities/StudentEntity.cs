@@ -10,7 +10,7 @@ public class StudentEntity : PersonEntity
     public string ArrivalCity { get; set; } = "";
     public string Passport { get; set; } = "";
 
-    public StudentEntity() { }   // потрібен XML та JSON десеріалізації
+    public StudentEntity() { }   
 
     protected StudentEntity(SerializationInfo info, StreamingContext context) : base(info, context)
     {
