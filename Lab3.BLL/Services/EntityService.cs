@@ -7,10 +7,7 @@ using Lab3.DAL.Providers;
 
 namespace Lab3.BLL.Services;
 
-/// <summary>
-/// Узагальнений сервіс бізнес-логіки: один код для всіх сутностей. Не працює з файлами й консоллю напряму:
-/// дані отримує та записує лише через EntityContext (DAL).
-/// </summary>
+
 public class EntityService<TModel, TEntity> : IEntityService<TModel>
     where TModel : Person
     where TEntity : PersonEntity, new()
@@ -30,7 +27,7 @@ public class EntityService<TModel, TEntity> : IEntityService<TModel>
     public SerializationFormat? CurrentFormat
         => _context.CurrentType.HasValue ? ToFormat(_context.CurrentType.Value) : null;
 
-    // ---------- робота з файлом БД ----------
+    
 
     public bool OpenStorage(string path, SerializationFormat format)
     {
@@ -59,7 +56,7 @@ public class EntityService<TModel, TEntity> : IEntityService<TModel>
         Execute(() => _context.Delete());
     }
 
-    // ---------- операції з сутностями ----------
+    
 
     public IReadOnlyList<TModel> GetAll()
     {
@@ -118,7 +115,7 @@ public class EntityService<TModel, TEntity> : IEntityService<TModel>
         });
     }
 
-    // ---------- допоміжне для нащадків ----------
+    
 
     protected void EnsureOpen()
     {
@@ -126,7 +123,7 @@ public class EntityService<TModel, TEntity> : IEntityService<TModel>
             throw new StorageException("Файл бази даних не відкрито. Спершу відкрийте або створіть файл.");
     }
 
-    /// <summary>Перечитує дані з файлу (завдання варіанта вимагає отримувати дані саме з файлу).</summary>
+    
     protected void ReloadFromFile() => Execute(() => _context.Refresh());
 
     protected IReadOnlyList<TModel> AllModels() => _context.Items.Select(_mapper.ToModel).ToList();
@@ -134,7 +131,7 @@ public class EntityService<TModel, TEntity> : IEntityService<TModel>
     private TEntity FindEntity(string key)
         => _context.Items.FirstOrDefault(e => string.Equals(e.GetKey(), key, StringComparison.OrdinalIgnoreCase));
 
-    // Помилки DAL перетворюються на власний виняток BLL; показує їх користувачу рівень представлення.
+    
     private static T Execute<T>(Func<T> action)
     {
         try { return action(); }
