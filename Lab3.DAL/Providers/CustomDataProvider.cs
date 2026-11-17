@@ -1,7 +1,4 @@
-// SYSLIB0050: у .NET 8 допоміжні типи ISerializable-інфраструктури (FormatterConverter, StreamingContextStates)
-// позначені як застарілі разом із BinaryFormatter. Сам інтерфейс ISerializable не вилучено, і він залишається
-// класичним механізмом користувацької серіалізації, який тут і досліджується. Тому попередження вимкнено
-// лише в цьому файлі.
+
 #pragma warning disable SYSLIB0050
 
 using System.Globalization;
@@ -12,15 +9,7 @@ using Lab3.DAL.Entities;
 
 namespace Lab3.DAL.Providers;
 
-/// <summary>
-/// Користувацька серіалізація через ISerializable. Об'єкт сам віддає свої дані у SerializationInfo
-/// (GetObjectData), а провайдер записує їх у власний текстовий формат:
-///   [StudentEntity]
-///   FirstName=Олена
-///   ...
-/// Під час читання дані збираються назад у SerializationInfo, і викликається
-/// захищений конструктор (SerializationInfo, StreamingContext) сутності.
-/// </summary>
+
 public class CustomDataProvider<T> : DataProvider<T> where T : Entity, new()
 {
     public override SerializationType Type => SerializationType.Custom;
