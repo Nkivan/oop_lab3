@@ -9,7 +9,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>disable</Nullable>
-    <!-- Точка входу бачить лише рівень представлення (PL). -->
+    
     <DisableTransitiveProjectReferences>true</DisableTransitiveProjectReferences>
   </PropertyGroup>
 
