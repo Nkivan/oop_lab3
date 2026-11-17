@@ -3,7 +3,7 @@ using Lab3.BLL.Validation;
 
 namespace Lab3.BLL.Models;
 
-/// <summary>Власна модель рівня BLL (не залежить від класів DAL).</summary>
+
 public abstract class Person : IDancer
 {
     private string _firstName = "";
@@ -23,7 +23,7 @@ public abstract class Person : IDancer
 
     public int Dances { get; private set; }
 
-    /// <summary>Унікальний ключ конкретного типу особи.</summary>
+    
     public abstract string Key { get; }
 
     protected Person(string lastName, string firstName, int dances)
@@ -34,6 +34,6 @@ public abstract class Person : IDancer
         Dances = dances;
     }
 
-    /// <summary>Змінює стан об'єкта.</summary>
+    
     public void Dance() => Dances++;
 }
