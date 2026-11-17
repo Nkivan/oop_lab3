@@ -3,11 +3,7 @@ using Lab3.DAL.Providers;
 
 namespace Lab3.DAL;
 
-/// <summary>
-/// Контекст даних (DAL): узагальнений набір операцій над файлом бази даних -
-/// створення/відкриття, оновлення (збереження), закриття та видалення файлу.
-/// Тип серіалізації й ім'я файлу приходять згори (з рівня представлення).
-/// </summary>
+
 public class EntityContext<T> where T : Entity, new()
 {
     private readonly List<T> _items = new List<T>();
@@ -18,7 +14,7 @@ public class EntityContext<T> where T : Entity, new()
     public SerializationType? CurrentType => _provider?.Type;
     public IReadOnlyList<T> Items => _items;
 
-    /// <summary>Відкриває файл БД; якщо його немає - створює порожній. Повертає true, якщо файл уже існував.</summary>
+    
     public bool Open(string path, SerializationType type)
     {
         if (string.IsNullOrWhiteSpace(path))
@@ -50,7 +46,7 @@ public class EntityContext<T> where T : Entity, new()
         return _items.Remove(item);
     }
 
-    /// <summary>Замінює в пам'яті сутність із тим самим ключем.</summary>
+    
     public void Update(T item)
     {
         EnsureOpen();
@@ -59,14 +55,14 @@ public class EntityContext<T> where T : Entity, new()
         _items[index] = item;
     }
 
-    /// <summary>Записує поточний стан у відкритий файл.</summary>
+    
     public void SaveChanges()
     {
         EnsureOpen();
         _provider.Save(FilePath, _items);
     }
 
-    /// <summary>Записує поточні дані в інший файл (і, за потреби, іншого типу) без зміни поточного.</summary>
+    
     public void SaveAs(string path, SerializationType type)
     {
         EnsureOpen();
@@ -74,7 +70,7 @@ public class EntityContext<T> where T : Entity, new()
         DataProviderFactory.Create<T>(type).Save(path, _items);
     }
 
-    /// <summary>Заново читає дані з файлу (відкидає незбережені зміни в пам'яті).</summary>
+   
     public void Refresh()
     {
         EnsureOpen();
@@ -90,7 +86,7 @@ public class EntityContext<T> where T : Entity, new()
         FilePath = null;
     }
 
-    /// <summary>Закриває і фізично видаляє файл БД.</summary>
+   
     public void Delete()
     {
         EnsureOpen();
