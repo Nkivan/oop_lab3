@@ -1,6 +1,4 @@
-// SYSLIB0050: у .NET 8 допоміжні типи ISerializable-інфраструктури (FormatterConverter, StreamingContextStates)
-// позначені як застарілі разом із BinaryFormatter. Сам інтерфейс ISerializable не вилучено, і він залишається
-// класичним механізмом користувацької серіалізації, який тут і досліджується.
+
 #pragma warning disable SYSLIB0050
 
 using System.Globalization;
@@ -13,10 +11,7 @@ using System.Xml.Serialization;
 
 namespace Lab3.Part1;
 
-/// <summary>
-/// Спільний контракт: кожен спосіб серіалізації вміє записати й прочитати будь-яку колекцію книг
-/// (масив Book[] або List&lt;Book&gt;).
-/// </summary>
+
 public interface IBookSerializer
 {
     string Name { get; }
@@ -25,7 +20,6 @@ public interface IBookSerializer
     TCollection Deserialize<TCollection>(string path) where TCollection : IEnumerable<Book>;
 }
 
-/// <summary>Перетворює масив прочитаних книг у запитаний тип колекції (Book[] або List&lt;Book&gt;).</summary>
 internal static class CollectionFactory
 {
     public static TCollection Create<TCollection>(Book[] items) where TCollection : IEnumerable<Book>
@@ -38,7 +32,6 @@ internal static class CollectionFactory
     }
 }
 
-/// <summary>Двійкова серіалізація на BinaryWriter/BinaryReader (BinaryFormatter у .NET 8 вилучено).</summary>
 public class BinaryBookSerializer : IBookSerializer
 {
     public string Name => "Двійкова (BinaryWriter/BinaryReader)";
@@ -76,10 +69,6 @@ public class BinaryBookSerializer : IBookSerializer
     }
 }
 
-/// <summary>
-/// Користувацька серіалізація: Book сам віддає дані через ISerializable.GetObjectData,
-/// а цей клас записує їх у власний текстовий формат (розділ [Book] + пари ім'я=значення).
-/// </summary>
 public class CustomBookSerializer : IBookSerializer
 {
     public string Name => "Користувацька (ISerializable)";
@@ -125,7 +114,6 @@ public class CustomBookSerializer : IBookSerializer
         return CollectionFactory.Create<TCollection>(result);
     }
 
-    // Захищений конструктор (SerializationInfo, StreamingContext) викликається через рефлексію.
     private static Book Create(SerializationInfo info)
         => (Book)Activator.CreateInstance(
             typeof(Book),
@@ -143,7 +131,6 @@ public class CustomBookSerializer : IBookSerializer
     }
 }
 
-/// <summary>XML-серіалізація (XmlSerializer): записуються відкриті властивості.</summary>
 public class XmlBookSerializer : IBookSerializer
 {
     public string Name => "XML (XmlSerializer)";
@@ -163,7 +150,6 @@ public class XmlBookSerializer : IBookSerializer
     }
 }
 
-/// <summary>JSON-серіалізація (System.Text.Json).</summary>
 public class JsonBookSerializer : IBookSerializer
 {
     private static readonly JsonSerializerOptions Options = new JsonSerializerOptions
