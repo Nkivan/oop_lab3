@@ -2,10 +2,10 @@ using Lab3.BLL.Validation;
 
 namespace Lab3.PL;
 
-/// <summary>Сигналізує про кінець вхідного потоку (наприклад, ввід перенаправлено з файлу).</summary>
+
 internal sealed class InputEndedException : Exception { }
 
-/// <summary>Усе читання з консолі та базове форматування виводу (рівень представлення).</summary>
+
 internal static class ConsoleIO
 {
     public static string ReadLine(string prompt)
@@ -16,7 +16,7 @@ internal static class ConsoleIO
         return line.Trim();
     }
 
-    /// <summary>Запитує значення, поки воно не відповідатиме регулярному виразу.</summary>
+    
     public static string ReadValid(string label, string pattern, string hint)
     {
         while (true)
@@ -37,7 +37,6 @@ internal static class ConsoleIO
         }
     }
 
-    /// <summary>Показує пронумеровані варіанти й повертає індекс обраного (з нуля).</summary>
     public static int Choose(string title, string[] options)
     {
         Console.WriteLine(title);
