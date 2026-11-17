@@ -4,13 +4,12 @@ using Lab3.DAL.Entities;
 
 namespace Lab3.DAL.Providers;
 
-/// <summary>JSON-серіалізація (System.Text.Json).</summary>
 public class JsonDataProvider<T> : DataProvider<T> where T : Entity, new()
 {
     private static readonly JsonSerializerOptions Options = new JsonSerializerOptions
     {
         WriteIndented = true,
-        Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping   // кирилиця читабельна, без \uXXXX
+        Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping   
     };
 
     public override SerializationType Type => SerializationType.Json;
