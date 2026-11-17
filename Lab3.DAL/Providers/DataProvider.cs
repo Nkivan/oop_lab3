@@ -2,11 +2,7 @@ using Lab3.DAL.Entities;
 
 namespace Lab3.DAL.Providers;
 
-/// <summary>
-/// Абстракція провайдера даних: відповідає за читання й запис набору сутностей у файл певного типу.
-/// Загальна частина (робота з FileStream, обробка помилок) - тут, а конкретний спосіб
-/// серіалізації - у нащадках (Write/Read). Так код не повторюється.
-/// </summary>
+
 public abstract class DataProvider<T> where T : Entity, new()
 {
     public abstract SerializationType Type { get; }
